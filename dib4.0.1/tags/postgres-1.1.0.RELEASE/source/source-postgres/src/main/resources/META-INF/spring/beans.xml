@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/************************************************************************
+ ** Cohesive Integrations
+ ** Change Log:
+ **    NAME    DATE    DESCRIPTION           
+ **    JV    06/11   Initial Release
+ ************************************************************************/
+ -->
+<beans:beans xmlns="http://www.springframework.org/schema/osgi"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:osgix="http://www.springframework.org/schema/osgi-compendium"
+	xsi:schemaLocation="http://www.springframework.org/schema/osgi http://www.springframework.org/schema/osgi/spring-osgi.xsd
+     					http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+     					http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+     					http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+     					http://www.springframework.org/schema/osgi-compendium http://www.springframework.org/schema/osgi-compendium/spring-osgi-compendium.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.cohesive.ddf.provider.pg" />
+
+	<beans:bean name="namespaceHandler"  class="com.cohesive.ddf.provider.pg.PostgresNamespaceHandler">
+	   <osgix:managed-properties persistent-id="com.cohesive.postgres.namespaces" 
+					update-strategy="bean-managed" update-method="updateNamespaces"/>
+	</beans:bean>
+	
+	<beans:bean name="postgresCatalogProvider"  class="com.cohesive.ddf.provider.pg.PostgresCatalogProvider">
+	   <osgix:managed-properties persistent-id="com.cohesive.postgres.datasource" 
+					update-strategy="bean-managed" update-method="updateDataSource"/>
+		<beans:property name="filterAdapter" ref="filterAdapter"/>
+		<beans:property name="dataSource" ref="dataSource" />
+		<beans:property name="encryptionService" ref="encryptionService" />
+		<beans:property name="namespaceHandler" ref="namespaceHandler" />
+	</beans:bean>
+	
+	<reference id="encryptionService" interface="ddf.security.encryption.EncryptionService" />
+    <reference id="filterAdapter" interface="ddf.catalog.filter.FilterAdapter" />
+	
+	<beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+  		<beans:property name="locations" value="file:///${DDF_HOME}/etc/ddf/com.cohesive.postgres.datasource.cfg"/>
+	</beans:bean>
+	
+	
+	
+	<service id="com.cohesive.ddf.provider.pg.PostgresCatalogProvider" 
+	         ref="postgresCatalogProvider" interface="ddf.catalog.source.CatalogProvider" />
+
+	<!-- BoneCP configuration -->
+	<beans:bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<beans:property name="driverClass" value="org.postgresql.Driver" />
+		<beans:property name="jdbcUrl" value="${jdbcUrl}" />
+		<beans:property name="username" value="${username}" />
+		<beans:property name="password" value="${password}" />
+		<beans:property name="idleConnectionTestPeriodInMinutes" value="${idleConnectionTestPeriodInMinutes}" />
+		<beans:property name="idleMaxAgeInMinutes" value="${idleMaxAgeInMinutes}" />
+		<beans:property name="maxConnectionsPerPartition" value="${maxConnectionsPerPartition}" />
+		<beans:property name="minConnectionsPerPartition" value="5" />
+		<beans:property name="partitionCount" value="${partitionCount}" />
+		<beans:property name="acquireIncrement" value="${acquireIncrement}" />
+		<beans:property name="statementsCacheSize" value="${statementsCacheSize}" />
+		<beans:property name="releaseHelperThreads" value="0" />
+	</beans:bean>
+	
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<beans:property name="dataSource" ref="dataSource" />
+	</beans:bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	 <!-- define the SqlSessionFactory -->
+    <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <beans:property name="dataSource" ref="dataSource" />
+        <!-- beans:property name="typeAliasesPackage" value="com.cohesiveintegrations.provider.domain" /-->
+        <beans:property name="typeHandlersPackage" value="com.cohesive.ddf.provider.common.types"/>
+    </beans:bean>
+    
+    <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg index="0" ref="sqlSessionFactory" />
+		<!-- <beans:constructor-arg index="1" value="BATCH" />-->
+	</beans:bean>
+     
+    <!-- Scans and allows autowiring of mappers -->
+    <beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <beans:property name="basePackage" value="com.cohesive.ddf.provider.pg.persistence" />
+    </beans:bean>
+	
+	<!-- <beans:bean id="mybatis" class="org.apache.ibatis.datasource.pooled.PooledDataSource" destroy-method="forceCloseAll">
+		<beans:property name="driver" value="org.postgresql.Driver" />
+		<beans:property name="url" value="jdbc:postgresql://localhost:5432/postgis20" />
+		<beans:property name="username" value="postgres" />
+		<beans:property name="password" value="postgres" />
+		<beans:property name="poolMaximumActiveConnections" value="20" />
+		<beans:property name="poolMaximumIdleConnections" value="5" />
+	</beans:bean>-->
+	<!-- <beans:bean id="pg" class="org.postgresql.ds.PGPoolingDataSource">
+		<beans:property name="serverName" value="localhost" />
+		<beans:property name="protocolVersion" value="4" />
+		<beans:property name="databaseName" value="dcgs" />
+		<beans:property name="user" value="postgres" />
+		<beans:property name="password" value="${postgres.password}" />
+		<beans:property name="portNumber" value="5432" />
+	</beans:bean>-->
+	
+	
+</beans:beans>
