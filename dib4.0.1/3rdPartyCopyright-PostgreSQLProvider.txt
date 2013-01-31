@@ -12,13 +12,12 @@ before installing or using the software.
 
 The following list includes the copyright holders for the
 included COTS, GOTS and open source software/code. The included libraries
-are found in the {DDF_INSTALL_DIR}/system-customizations/cohesive-postgres
-directory upon installing this feature.
+are found in the cohesive-source-postgres kar file.
 
     Cohesive Integrations, LLC
 
-Text of the additonal licenses listed may be found in the feature zip 
-file under the /system-customizations/cohesive-postgres/licenses directory.
+Text of the additonal license listed may be found in the follwoing directory 
+when the kar file is installed DDF_HOME/cohesive.
 
 U.S. EXPORT CONTROLLED TECHNICAL DATA
 This software contains export-restricted data whose 
