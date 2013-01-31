@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cohesive.ddf.provider.pg.persistence.PostgresQueryMapper">
+<!--  
+	<cache />
+-->
+	<select id="query" resultType="com.cohesive.ddf.provider.common.ProviderResult" parameterType="com.cohesive.ddf.provider.pg.PostgresQuery">
+
+		SELECT CATALOG_ID as id, 
+		       CATALOG_TITLE as title, 
+		       CATALOG_DATATYPE as contentTypeName,
+		       CATALOG_VERSION as contentTypeVersion,
+		       CATALOG_CREATED_TIMESTAMP as createdDate,
+		       CATALOG_MODIFIED_TIMESTAMP as modifiedDate,
+		       CATALOG_EFFECTIVE_TIMESTAMP as effectiveDate,
+		       CATALOG_EXPIRATION_TIMESTAMP as expirationDate,
+		       CATALOG_WKT_TEXT as location,
+		       CATALOG_METADATA as metadata,
+		       CATALOG_THUMBNAIL as thumbnail,
+		       
+		        
+		         <if test="addRelevance">
+		           ts_rank_cd(text_search_index_column, ftQuery1) AS relevance,
+		         </if>
+		       <choose>
+		         <when test="addDistance">
+		           ST_Distance_Sphere(catalog_source_location,  ST_GeomFromEWKT('SRID=4326;${wkt}')) as distance,
+		         </when>
+		         <otherwise>
+		         	0 AS distance,
+		         </otherwise>
+		       </choose>
+		       CATALOG_RESOURCE_URI as resourceUri,
+		       CATALOG_RESOURCE_SIZE as resourceSize,
+		       #{sourceId} as sourceId
+		       FROM ddf.ddf_catalog_tab
+		       <if test="additionalFromStmts != null">
+		       		${additionalFromStmts}
+		       </if>
+		       <!-- <if test="fullTextSearchString != null">
+		         , to_tsquery(#{fullTextSearchString}) query
+		       </if>-->
+		<where>
+		       ${query}
+		</where>
+		 ORDER BY ${orderBy} LIMIT ${maxResults} OFFSET ${offset}
+	</select>
+	
+	<select id="getTotalCount" resultType="int" parameterType="com.cohesive.ddf.provider.pg.PostgresQuery">
+
+		SELECT count(1)
+		       FROM ddf.ddf_catalog_tab 
+		       <if test="additionalFromStmts != null">
+		       	${additionalFromStmts}
+		       </if>
+		       <where>
+		       ${query}
+		</where>
+		
+		
+	</select>
+	
+	<select id="testConnection" resultType="int" statementType="STATEMENT">
+		SELECT 1
+	</select>
+
+</mapper>
