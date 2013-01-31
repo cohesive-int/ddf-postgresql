@@ -103,11 +103,11 @@
 						<tagBase>https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/</tagBase>
 					</configuration>
 				</plugin>
-				<plugin>
+				<!--<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>${maven.javadoc.plugin.version}</version>
-				</plugin>
+				</plugin>-->
 				<!--<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>findbugs-maven-plugin</artifactId>

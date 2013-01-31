@@ -264,7 +264,7 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
     
     
     public void updateDataSource(@SuppressWarnings( "rawtypes" ) Map properties) {
-        System.out.println( "updateDataSource CAlled" + properties );
+       
         if(datasource == null ) {
             logger.warn("DataSource is null and has not been properly initialized. This object should be created before it is updated.") ;
             return;
