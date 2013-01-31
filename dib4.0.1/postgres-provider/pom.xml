@@ -8,7 +8,7 @@
 	<name>Postgres Catalog Provider</name>
 	<groupId>com.cohesive.ddf</groupId>
 	<artifactId>postgres</artifactId>
-	<version>1.1.0.RELEASE-SNAPSHOT</version>
+	<version>1.1.0.RELEASE</version>
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -30,8 +30,8 @@
     </description>
 	
 	<scm>
-        <connection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/</connection>
-		<developerConnection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/postgres-provider</developerConnection>
+        <connection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/postgres-1.1.0.RELEASE</connection>
+		<developerConnection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/postgres-1.1.0.RELEASE</developerConnection>
     </scm>
 
     <issueManagement>
