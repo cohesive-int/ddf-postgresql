@@ -20,7 +20,7 @@ public class PostgresNamespaceHandler {
     
     @SuppressWarnings("rawtypes")
 	public void updateNamespaces( Map<String,String> updatedMap ){
-    	System.out.println( "updateNamespaces CAlled" + updatedMap );
+
     	int size = updatedMap.size();
     	logger.debug( "Updating namespace values with " + size + " values" );
     	if ( size > 0 ){
