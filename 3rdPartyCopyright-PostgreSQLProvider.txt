@@ -16,8 +16,8 @@ are found in the cohesive-source-postgres kar file.
 
     Cohesive Integrations, LLC
 
-Text of the additonal license listed may be found in the follwoing directory 
-when the kar file is installed DDF_HOME/cohesive.
+Text of the additonal license listed may be found in the following directory 
+when the kar file is installed DDF_HOME/cohesive/source-postgres.
 
 U.S. EXPORT CONTROLLED TECHNICAL DATA
 This software contains export-restricted data whose 
