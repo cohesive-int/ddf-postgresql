@@ -14,9 +14,14 @@ The following list includes the copyright holders for the
 included COTS, GOTS and open source software/code. The included libraries
 are found in the cohesive-source-postgres kar file.
 
-    Cohesive Integrations, LLC
+	Cohesive Integrations, LLC
+	PostgreSQL Global Development Group
+	Apache Software Foundation
+	Wallace Wadge
+	Lockheed Martin
+	The Guava Authors
 
-Text of the additonal license listed may be found in the following directory 
+Text of the additonal licenses listed may be found in the following directory 
 when the kar file is installed DDF_HOME/cohesive/source-postgres.
 
 U.S. EXPORT CONTROLLED TECHNICAL DATA
