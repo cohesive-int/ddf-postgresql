@@ -161,6 +161,12 @@
 		                  <type>cfg</type>
 		                  <classifier>namespaces</classifier>
 		                </artifact>
+		                <artifact>
+		                  <file>../../3rdPartyCopyright-PostgreSQLSource.txt</file>
+		                  <type>txt</type>
+		                  <classifier>copyright</classifier>
+		                </artifact>
+		                
 		              </artifacts>
 		            </configuration>
 		          </execution>
