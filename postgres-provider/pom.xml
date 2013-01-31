@@ -133,14 +133,14 @@
 				</plugin>-->
 		</plugins>
 	</build>
-	
+	<!--
 	<distributionManagement>
 		<repository>
 			<id>Cohesive Repository</id>
 			<name>Cohesive Repository-releases</name>
 			<url>http://localhost:9090/artifactory/cohesive-repo</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 	<modules>
  	    <module>source</module>
