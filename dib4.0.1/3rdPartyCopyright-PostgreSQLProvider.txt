@@ -1,0 +1,27 @@
+The U.S. Government's rights in and
+to this copyrighted software are Unlimited Government Rights.
+
+Other entities have established copyrights in certain portions of
+this work.
+
+You are only authorized to use the redistributable files to the 
+extent required for the operation of DDF. All rights to use 
+the 3rd party work are set forth in the respective 3rd party 
+license agreements that accompany this work.  Read carefully 
+before installing or using the software.
+
+The following list includes the copyright holders for the
+included COTS, GOTS and open source software/code. The included libraries
+are found in the {DDF_INSTALL_DIR}/system-customizations/cohesive-postgres
+directory upon installing this feature.
+
+    Cohesive Integrations, LLC
+
+Text of the additonal licenses listed may be found in the feature zip 
+file under the /system-customizations/cohesive-postgres/licenses directory.
+
+U.S. EXPORT CONTROLLED TECHNICAL DATA
+This software contains export-restricted data whose 
+export/transfer/disclosure is restricted by U.S. law.  
+Dissemination to non-U.S. persons whether in the United States or
+abroad requires an export license or other authorization.
