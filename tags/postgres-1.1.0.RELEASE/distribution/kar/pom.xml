@@ -1,0 +1,97 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+	    <groupId>com.cohesive.ddf.postgres</groupId>
+		<artifactId>distribution</artifactId>
+		<version>1.1.0.RELEASE</version>
+	</parent>
+
+  <groupId>com.cohesive.ddf.kar</groupId>
+  <artifactId>cohesive-source-postgres</artifactId>
+  <name>Postgres MDC Source :: KAR</name>
+
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>${maven.resources.plugin.version}</version>
+        <executions>
+          <execution>
+            <id>copy-resources</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/classes</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>${basedir}/../feature/src/main/resources/</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions>
+      </plugin>
+      
+      <plugin>
+            <groupId>org.apache.karaf.tooling</groupId>
+            <artifactId>features-maven-plugin</artifactId>
+            <version>${karaf.version}</version>
+            <executions>
+                <execution>
+                    <id>create-kar</id>
+                    <goals>
+                        <goal>create-kar</goal>
+                    </goals>
+                    <configuration>
+                        <descriptors>
+			              	<descriptor>mvn:com.cohesive.ddf.feature/cohesive-source-postgres/${project.version}/xml/features</descriptor>
+			            </descriptors>
+			            <!--
+			            Workaround to prevent the target/classes/features.xml file from being included in the
+			            kar file since features.xml already included in kar's repository directory tree. 
+			            Otherwise, features.xml would appear twice in the kar file, hence installing the
+			            same feature twice. 
+			            Refer to Karaf forum posting at http://karaf.922171.n3.nabble.com/Duplicate-feature-repository-entry-using-archive-kar-to-build-deployable-applications-td3650850.html
+			            -->				            
+			            <resourcesDir>${project.build.directory}/doesNotExist</resourcesDir>
+			            <includeDependencies>true</includeDependencies>
+                        <featuresFile>${basedir}/target/classes/features.xml</featuresFile>
+                        <finalName>cohesive-source-postgres-${project.version}</finalName>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>    
+            
+        <!--
+        Install KAR file into maven repository.
+        Useful for future access in integration testing to deploy KAR. 
+        -->              
+<!--
+        <plugin>
+			<artifactId>maven-install-plugin</artifactId>
+			<version>${maven.install.plugin.version}</version>
+			<executions>
+			   <execution>
+				   <id>install-kar</id>
+				   <phase>install</phase>
+				   <goals>
+				      <goal>install-file</goal>
+				   </goals>
+				   <configuration>
+				      <groupId>${project.groupId}</groupId>
+				      <artifactId>${project.artifactId}</artifactId>
+				      <version>${project.version}</version>
+				      <packaging>jar</packaging>
+				      <file>ddf-dummy-provider-${project.version}.kar</file>
+				   </configuration>
+				</execution>
+			</executions>
+		</plugin>  
+-->
+    </plugins>
+  </build>  
+</project>
