@@ -166,7 +166,32 @@
 		                  <type>txt</type>
 		                  <classifier>copyright</classifier>
 		                </artifact>
-		                
+		                <artifact>
+		                  <file>../../SoftwareUsageAgreement-PostgreSQLSource.txt</file>
+		                  <type>txt</type>
+		                  <classifier>agreement</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../ExportControl-PostgreSQLSource.txt</file>
+		                  <type>txt</type>
+		                  <classifier>export</classifier>
+		                </artifact>
+		   
+		                <artifact>
+		                  <file>../../licenses/Apache v2.0.pdf</file>
+		                  <type>pdf</type>
+		                  <classifier>apache-license</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../licenses/Cohesive Integrations v1.0.pdf</file>
+		                  <type>pdf</type>
+		                  <classifier>cohesive-license</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../licenses/BSDLicense.pdf</file>
+		                  <type>pdf</type>
+		                  <classifier>bsd-license</classifier>
+		                </artifact>
 		              </artifacts>
 		            </configuration>
 		          </execution>
