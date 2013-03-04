@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	    <groupId>com.cohesive.ddf.postgres</groupId>
+		<artifactId>source</artifactId>
+		<version>1.1.1.RELEASE</version>
+	</parent>
+	<name>Cohesive Integrations :: DDF :: Source :: Postgres MDC</name>
+	<artifactId>cohesive-source-postgres</artifactId>
+	<packaging>bundle</packaging>
+
+	<dependencies> 
+
+		<!--<dependency>
+			<groupId>com.spatial4j</groupId>
+			<artifactId>spatial4j-solr</artifactId>
+			<version>0.3-2012-06-04_01-01-14</version>
+		</dependency>-->
+
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres.driver.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>ddf.catalog.common</groupId>
+			<artifactId>commons-ddf</artifactId>
+			<version>${ddf.commons.version}</version>
+			<!-- Excluding JScience dependency due to NoClassDefFoundError in GeotoolsAttributeBuilder during JUnit
+				 testing if included. -->
+			<exclusions>
+				<exclusion>
+					<artifactId>jscience</artifactId>
+					<groupId>org.jscience</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>ddf.catalog.core</groupId>
+			<artifactId>ddf-catalog-api</artifactId>
+			<version>${ddf.catalog.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ddf.measure</groupId>
+			<artifactId>measure-api</artifactId>
+			<version>${ddf.measure.api.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>${bonecp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+  			<artifactId>commons-lang3</artifactId>
+  			<version>${commons.lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>${ognl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.osgi.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>ddf.security</groupId>
+            <artifactId>encryption-service-api</artifactId>
+            <version>${ddf.security.encryption.service.api.version}</version>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Embed-Dependency>
+							commons-ddf,
+							spatial4j-solr,
+							postgresql,
+							bonecp,
+							mybatis-spring,
+							mybatis,
+							commons-lang3,
+							guava,
+							ognl
+						</Embed-Dependency>
+                        <Export-Package />
+                        <Import-Package>
+                            <!-- Packages used by dependencies but not needed at runtime -->
+							sun.security.krb5;resolution:=optional,
+                            sun.security.krb5.internal;resolution:=optional,
+                            sun.security.util;resolution:=optional,
+                            com.sun.security.auth.module;resolution:=optional,
+                            sun.awt.geom;resolution:=optional,
+                            sun.misc;resolution:=optional,
+
+                            <!-- Setting version manually to prevent bundle plugin setting it too high -->
+                            javax.servlet;version="[2.4,3)",
+                            javax.servlet.http;version="[2.4,3)",
+                            <!-- Everything else should auto-import -->
+							org.aopalliance.aop,
+							org.springframework.aop,
+						    org.springframework.aop.framework,
+						    org.springframework.jdbc.datasource,
+						    org.springframework.stereotype,
+						    org.springframework.transaction.annotation,
+							org.springframework.beans.factory.annotation,
+							
+							ddf.catalog.data;version="[2.0,2.1)", 
+							ddf.catalog.filter;version="[2.0,3.0)", 
+							ddf.catalog.operation;version="[2.0,3.0)", 
+							ddf.catalog.plugin;version="[2.0,3.0)", 
+							ddf.catalog.resource;version="[2.0,3.0)", 
+							ddf.catalog.source;version="[2.0,2.1)", 
+							ddf.catalog.util;version="[2.0,3.0)",
+                            *
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build.helper.plugin.version}</version>
+		        <executions>
+		          <execution>
+		            <id>attach-artifacts</id>
+		            <phase>package</phase>
+		            <goals>
+		              <goal>attach-artifact</goal>
+		            </goals>
+		            <configuration>
+		              <artifacts>
+		                <artifact>
+		                  <file>src/main/config/com.cohesive.postgres.datasource.cfg</file>
+		                  <type>cfg</type>
+		                  <classifier>datasource</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>src/main/config/com.cohesive.postgres.namespaces.cfg</file>
+		                  <type>cfg</type>
+		                  <classifier>namespaces</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../3rdPartyCopyright-PostgreSQLSource.txt</file>
+		                  <type>txt</type>
+		                  <classifier>copyright</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../SoftwareUsageAgreement-PostgreSQLSource.txt</file>
+		                  <type>txt</type>
+		                  <classifier>agreement</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../ExportControl-PostgreSQLSource.txt</file>
+		                  <type>txt</type>
+		                  <classifier>export</classifier>
+		                </artifact>
+		   
+		                <artifact>
+		                  <file>../../licenses/Apache v2.0.pdf</file>
+		                  <type>pdf</type>
+		                  <classifier>apache-license</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../licenses/Cohesive Integrations v1.0.pdf</file>
+		                  <type>pdf</type>
+		                  <classifier>cohesive-license</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../licenses/BSDLicense.pdf</file>
+		                  <type>pdf</type>
+		                  <classifier>bsd-license</classifier>
+		                </artifact>
+		              </artifacts>
+		            </configuration>
+		          </execution>
+		        </executions>
+		      </plugin>
+		</plugins>
+	</build>
+
+	
+</project>
