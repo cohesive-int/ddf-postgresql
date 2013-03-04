@@ -8,10 +8,9 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.Set;
-
 
 import org.slf4j.LoggerFactory;
 import org.slf4j.ext.XLogger;
@@ -132,10 +131,10 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
         List<Metacard> output = new ArrayList<Metacard>();
         
         Date now = new Date();
-        String id = getId();
+        String sourceId = getId();
         
         for ( Metacard metacard : createMetacards ) {
-        	ProviderMetacard providerMetacard = new ProviderMetacard( metacard, now, id );
+        	ProviderMetacard providerMetacard = new ProviderMetacard( metacard, now, sourceId );
             crudMapper.createMetacard( providerMetacard );
             output.add( providerMetacard );
         }
@@ -400,14 +399,14 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
 			logger.warn("A plain text password was provided in the Postgres Catalog Provider configuration in the console.  Consider using an encrypted password.");
 		}
 
-		if (logger.isDebugEnabled()) {
+		/*if (logger.isDebugEnabled()) {
 			StringBuilder builder = new StringBuilder();
 			builder.append("encryptionService: " + encryptionService + "\n");
 			builder.append("wrappedEncryptedValue: " + wrappedEncryptedValue + "\n");
 			builder.append("encryptedValue: " + encryptedValue + "\n");
 			builder.append("decryptedValue: " + decryptedValue + "\n");
 			logger.debug(builder.toString());
-		}
+		}*/
 
 		return decryptedValue;
 	}
@@ -420,7 +419,7 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
 		final String pattern = "^ENC\\((.*)\\)$";
 		String unwrappedEncryptedValue = null;
 
-		logger.debug("Wrapped encrypted value: " + wrappedEncryptedValue);
+		//logger.debug("Wrapped encrypted value: " + wrappedEncryptedValue);
 		Pattern p = Pattern.compile(pattern);
 		Matcher m = p.matcher(wrappedEncryptedValue);
 		if (m.find()) {
@@ -430,7 +429,7 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
 			 * my-encrypted-password.
 			 */
 			unwrappedEncryptedValue = m.group(1);
-			logger.debug("Encrypted value: " + unwrappedEncryptedValue);
+			//logger.debug("Encrypted value: " + unwrappedEncryptedValue);
 		} else {
 			/**
 			 * If the password is not in the form ENC(my-encrypted-password), we

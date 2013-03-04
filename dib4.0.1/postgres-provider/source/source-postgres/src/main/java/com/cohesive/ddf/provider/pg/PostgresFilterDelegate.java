@@ -278,7 +278,8 @@ public class PostgresFilterDelegate extends FilterDelegate<SQLHolder> {
 	public SQLHolder xpathExists( String xpath ){
 	    logEntry( "xpathExists", Metacard.METADATA, xpath );
 	    xpath = normalizeDefaultNamespaces( normalizeDefaultNamespaces( normalizeDefaultNamespaces( xpath, new StringBuilder(), '[' ), new StringBuilder(), '/' ), new StringBuilder(), '@' );
-	    return new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
+	    return new SQLHolder( "array_length(xpath( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" ),1) is not null " );
+	    //return new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
 	}
 	 
 	@Override 
@@ -290,11 +291,13 @@ public class PostgresFilterDelegate extends FilterDelegate<SQLHolder> {
 	    if ( index >= 0 ){
             xpath = xpath.replace( "/@", "[@" );
             xpath += "=\""+pattern+"\"]";
-            returnHolder = new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
+            returnHolder = new SQLHolder( "array_length(xpath( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" ),1) is not null " );
+            //returnHolder = new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
         }else{
             List<SQLHolder> holders = new ArrayList<SQLHolder>();
             holders.add( propertyIsLike( Metacard.ANY_TEXT, pattern, isCaseSensitive ) );
-            holders.add( new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" ) );
+            holders.add( new SQLHolder( "array_length(xpath( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" ),1) is not null " ) );
+            //holders.add( new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" ) );
             returnHolder = this.and( holders );
         }
 	    return returnHolder;
@@ -309,14 +312,17 @@ public class PostgresFilterDelegate extends FilterDelegate<SQLHolder> {
         if ( index >= 0 ){
             xpath.replace( "/@", "[@" );
             xpath += "=\""+literal+"\"]";
-            returnHolder = new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
+            returnHolder = new SQLHolder( "array_length(xpath( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" ),1) is not null " );
+            //returnHolder = new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
         }else if ( literal != null && !literal.isEmpty() ){
             List<SQLHolder> holders = new ArrayList<SQLHolder>();
             holders.add( propertyIsFuzzy( Metacard.ANY_TEXT, literal ) );
-            holders.add( new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" ) );
+            holders.add( new SQLHolder( "array_length(xpath( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" ),1) is not null " ) );
+            //holders.add( new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" ) );
             returnHolder = this.and( holders );
         }else{
-        	returnHolder = new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
+        	returnHolder = new SQLHolder( "array_length(xpath( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" ),1) is not null " );
+        	//returnHolder = new SQLHolder( "xpath_exists( '"+xpath+"', xml(catalog_metadata), "+namespaceHandler.getNamespacesAsString()+" )" );
         }
         return returnHolder;
 	}
