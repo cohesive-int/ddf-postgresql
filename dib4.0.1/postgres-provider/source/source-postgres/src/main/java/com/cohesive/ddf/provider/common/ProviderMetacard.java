@@ -2,6 +2,7 @@ package com.cohesive.ddf.provider.common;
 
 import java.net.URI;
 import java.util.Date;
+import java.util.UUID;
 
 import ddf.catalog.data.Metacard;
 import ddf.catalog.data.MetacardImpl;
@@ -32,14 +33,13 @@ public class ProviderMetacard extends MetacardImpl{
 	@Override
 	public URI getResourceURI(){
 	    URI uri = super.getResourceURI();
-	    //return uri == null || EMPTY_DAD_URI.equals( uri ) ||  EMPTY_MALFORMED_DAD_URI.equals( uri ) ? NO_RESOURCE_URI_SCHEME + getId() : uri.toASCIIString(); 
 	    return uri == null || EMPTY_DAD_URI.equals( uri ) ? null : uri;
 	}
 	
 	public String getProviderResourceURI(){
 	    URI uri = getResourceURI();
-	    //return uri == null || EMPTY_DAD_URI.equals( uri ) ||  EMPTY_MALFORMED_DAD_URI.equals( uri ) ? NO_RESOURCE_URI_SCHEME + getId() : uri.toASCIIString(); 
-	    return uri == null ? null : uri.toASCIIString();
+	    return uri == null || EMPTY_DAD_URI.equals( uri )  ? NO_RESOURCE_URI_SCHEME + getId() : uri.toASCIIString(); 
+	    //return uri == null ? null : uri.toASCIIString();
 	}
 	
 	@Override
@@ -49,17 +49,27 @@ public class ProviderMetacard extends MetacardImpl{
 	    return size == null || size.trim().isEmpty() ? null : size ;
 	}
 	
-	//private String generatePrimaryKey(){
-	//	return UUID.randomUUID().toString().replaceAll("-", "");
-	//}	
+	private String generatePrimaryKey(){
+		return UUID.randomUUID().toString().replaceAll("-", "");
+	}	
 	
 	private void initValues( Date now, String sourceId ) {
         
+		String metacardId = getId();
+		if ( metacardId == null || metacardId.isEmpty() ){
+			setId( generatePrimaryKey() );
+		}
         if ( getEffectiveDate() == null ){
-            setEffectiveDate( now );
-            setModifiedDate( now );
-            setCreatedDate( now );
+            setEffectiveDate( now );  
         }
+        if ( getCreatedDate() == null ){
+        	setCreatedDate( now );
+        }
+        if ( getModifiedDate() == null ){
+        	setModifiedDate( now );
+        }
+        
+        
         String value = getTitle();
         if ( value == null || value.trim().isEmpty() ){
             setTitle( UNKNOWN_CONTENT );
