@@ -9,8 +9,6 @@ import java.util.List;
 import com.cohesive.ddf.provider.common.ProviderMetacard;
 import com.cohesive.ddf.provider.common.UpdateByURIRequest;
 
-import ddf.catalog.data.Metacard;
-
 
 
 /**
