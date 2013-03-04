@@ -9,6 +9,9 @@ import org.slf4j.ext.XLogger;
 public class PostgresNamespaceHandler {
     
     private static final XLogger logger = new XLogger( LoggerFactory.getLogger(PostgresNamespaceHandler.class ) );
+    
+    private static final String FELIX_FILENAME = "felix.fileinstall.filename";
+    private static final String SERVICE_PID = "service.pid";
 
     private Map<String,String> namespaceMap = null;
     private String namespaceString = null;
@@ -18,7 +21,6 @@ public class PostgresNamespaceHandler {
     	loadDefaultNamespaces();
     }
     
-    @SuppressWarnings("rawtypes")
 	public void updateNamespaces( Map<String,String> updatedMap ){
 
     	int size = updatedMap.size();
@@ -66,12 +68,13 @@ public class PostgresNamespaceHandler {
         StringBuilder sb = new StringBuilder( "ARRAY[" );
 
         for ( String prefix : namespaceMap.keySet() ) {
-            sb.append( "ARRAY['" );
-            sb.append( prefix == null || prefix.equalsIgnoreCase( "default" ) ? "default" : prefix );
-            sb.append( "', '" );
-            sb.append( namespaceMap.get( prefix ) );
-            sb.append( "']," );
-
+        	if ( !SERVICE_PID.equals(prefix) && !FELIX_FILENAME.equals( prefix )){
+	            sb.append( "ARRAY['" );
+	            sb.append( prefix == null || prefix.equalsIgnoreCase( "default" ) ? "default" : prefix );
+	            sb.append( "', '" );
+	            sb.append( namespaceMap.get( prefix ) );
+	            sb.append( "']," );
+        	}
         }
         sb.deleteCharAt( sb.length() - 1 );
         sb.append( "]" );
