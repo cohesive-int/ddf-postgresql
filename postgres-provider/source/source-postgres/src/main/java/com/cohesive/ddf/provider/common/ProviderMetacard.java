@@ -37,7 +37,7 @@ public class ProviderMetacard extends MetacardImpl{
 	}
 	
 	public String getProviderResourceURI(){
-	    URI uri = getResourceURI();
+	    URI uri = super.getResourceURI();
 	    return uri == null || EMPTY_DAD_URI.equals( uri )  ? NO_RESOURCE_URI_SCHEME + getId() : uri.toASCIIString(); 
 	    //return uri == null ? null : uri.toASCIIString();
 	}
