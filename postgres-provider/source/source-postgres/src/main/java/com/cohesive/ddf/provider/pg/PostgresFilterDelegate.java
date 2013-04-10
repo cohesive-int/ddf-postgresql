@@ -209,7 +209,7 @@ public class PostgresFilterDelegate extends FilterDelegate<SQLHolder> {
 	  //TODO figure out how to format dates
 	    logEntry( "before", propertyName, date );
 	    
-	    return new SQLHolder( getMappedPropertyName(propertyName) + " between 'epoch' AND '" +  date  );
+	    return new SQLHolder( getMappedPropertyName(propertyName) + " between 'epoch' AND '" +  date + "'" );
 	}
 	
 	@Override
