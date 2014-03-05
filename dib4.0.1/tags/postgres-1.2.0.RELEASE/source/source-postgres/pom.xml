@@ -1,0 +1,278 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	    <groupId>com.cohesive.ddf.postgres</groupId>
+		<artifactId>source</artifactId>
+		<version>1.2.0.RELEASE</version>
+	</parent>
+	<name>Cohesive Integrations :: DDF :: Source :: Postgres MDC</name>
+	<artifactId>cohesive-source-postgres</artifactId>
+	<packaging>bundle</packaging>
+
+	<dependencies> 
+
+		<!--<dependency>
+			<groupId>com.spatial4j</groupId>
+			<artifactId>spatial4j-solr</artifactId>
+			<version>0.3-2012-06-04_01-01-14</version>
+		</dependency>-->
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>${postgres.driver.version}</version>
+		</dependency>
+		
+		<!-- <dependency>
+			<groupId>ddf.catalog.common</groupId>
+			<artifactId>commons-ddf</artifactId>
+			<version>${ddf.commons.version}</version>
+		
+			<exclusions>
+				<exclusion>
+					<artifactId>jscience</artifactId>
+					<groupId>org.jscience</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+ -->
+ 		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>${joda.time.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.vividsolutions</groupId>
+			<artifactId>jts</artifactId>
+			<version>${jts.version}</version>
+		</dependency>
+		            
+            
+		<dependency>
+			<groupId>ddf.catalog.core</groupId>
+			<artifactId>catalog-core-api</artifactId>
+			<version>${ddf.catalog.api.version}</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>ddf.measure</groupId>
+			<artifactId>measure-api</artifactId>
+			<version>${ddf.measure.api.version}</version>
+		</dependency>-->
+
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>${bonecp.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>${mybatis.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+  			<artifactId>commons-lang3</artifactId>
+  			<version>${commons.lang3.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>${ognl.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.osgi.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>ddf.security.encryption</groupId>
+            <artifactId>security-encryption-api</artifactId>
+            <version>${ddf.security.encryption.api.version}</version>
+        </dependency>
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.framework.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.batch</groupId>
+			<artifactId>spring-batch-infrastructure</artifactId>
+			<version>${spring.framework.batch.version}</version>
+		</dependency>
+            
+            
+		            
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+                        <Embed-Dependency>	
+							postgresql,
+							bonecp,
+							mybatis-spring,
+							mybatis,
+							commons-lang3,
+							guava,
+							ognl,
+							spring-batch-infrastructure,
+							joda-time,
+							jts
+						</Embed-Dependency>
+                        <Export-Package />
+                        <Import-Package>
+                            <!-- Packages used by dependencies but not needed at runtime 
+							sun.security.krb5;resolution:=optional,
+                            sun.security.krb5.internal;resolution:=optional,
+                            sun.security.util;resolution:=optional,
+                            com.sun.security.auth.module;resolution:=optional,
+                            sun.awt.geom;resolution:=optional,
+                            sun.misc;resolution:=optional,
+                            javassist.util.proxy;resolution:=optional,
+                            org.apache.logging.log4j;resolution:=optional,
+                            org.apache.logging.log4j.message;resolution:=optional,
+                            org.apache.logging.log4j.spi;resolution:=optional,
+							com.ibatis.sqlmap.client;resolution:=optional,
+							com.ibatis.sqlmap.engine.execution;resolution:=optional,-->
+
+                            <!-- Setting version manually to prevent bundle plugin setting it too high -->
+                            javax.servlet;version="[2.4,3)",
+                            javax.servlet.http;version="[2.4,3)",
+                            javax.sql,
+                            javax.management,
+                            javax.naming,
+                            javax.naming.spi,
+                            javax.transaction.xa,
+                            javax.xml,
+                            javax.xml.namespace,
+                            javax.xml.parsers,
+                            javax.xml.stream,
+                            javax.xml.stream.events,
+                            javax.xml.transform,
+                            javax.xml.transform.dom,
+                            javax.xml.transform.sax,
+                            javax.xml.transform.stax,
+                            javax.xml.transform.stream,
+                            javax.xml.xpath,
+                            org.w3c.dom,
+                            org.xml.sax,
+                            org.xml.sax.helpers,
+                            
+                            org.slf4j;version="[1.7,2)",
+                            org.slf4j.ext;version="[1.7,2)",
+                            org.opengis.filter;version="[8.4,9)",
+                            org.opengis.filter.expression;version="[8.4,9)",
+                            org.opengis.filter.sort;version="[8.4,9)",
+                            org.apache.commons.logging;version="[1.0,2)",
+                            
+                            <!-- Everything else should auto-import -->
+							org.aopalliance.aop;version="[1.0,2.0)",
+							org.springframework.aop;version="[3.0,4.0)",
+						    org.springframework.aop.framework;version="[3.0,4.0)",
+						    org.springframework.jdbc;version="[3.0,4.0)",
+						    org.springframework.jdbc.datasource;version="[3.0,4.0)",
+						    org.springframework.jdbc.support;version="[3.0,4.0)",
+						    org.springframework.stereotype;version="[3.0,4.0)",
+						    org.springframework.transaction;version="[3.0,4.0)",
+						    org.springframework.transaction.annotation;version="[3.0,4.0)",
+						    org.springframework.transaction.support;version="[3.0,4.0)",
+							org.springframework.beans;version="[3.0,4.0)",
+							org.springframework.beans.factory;version="[3.0,4.0)",
+							org.springframework.beans.factory.annotation;version="[3.0,4.0)",
+							org.springframework.beans.factory.config;version="[3.0,4.0)",
+							org.springframework.beans.factory.support;version="[3.0,4.0)",
+							org.springframework.beans.factory.xml;version="[3.0,4.0)",
+							org.springframework.context;version="[3.0,4)",
+							org.springframework.context.annotation;version="[3.0,4)",
+							org.springframework.context.event;version="[3.0,4)",
+							org.springframework.context.support;version="[3.0,4)",
+							org.springframework.core;version="[3.0,4)",
+							org.springframework.core.io;version="[3.0,4)",
+							org.springframework.core.type.filter;version="[3.0,4)",
+							org.springframework.core.type;version="[3.0,4)",
+							org.springframework.core.type.classreading;version="[3.0,4)",
+							org.springframework.dao;version="[3.0,4)",
+							org.springframework.dao.support;version="[3.0,4)",
+							org.springframework.util;version="[3.0,4)",
+							
+							
+							ddf.catalog.data;version="[2.0,2.1)", 
+							ddf.catalog.filter;version="[2.0,3.0)", 
+							ddf.catalog.operation;version="[2.0,3.0)", 
+							ddf.catalog.plugin;version="[2.0,3.0)", 
+							ddf.catalog.resource;version="[2.0,3.0)", 
+							ddf.catalog.source;version="[2.0,2.1)", 
+							ddf.catalog.util;version="[2.0,3.0)",
+							
+							ddf.security.encryption;version="[1.0,2.0)",
+							
+                            
+                        </Import-Package>
+                    </instructions>
+                </configuration>
+            </plugin>
+			<plugin>
+		        <groupId>org.codehaus.mojo</groupId>
+		        <artifactId>build-helper-maven-plugin</artifactId>
+				<version>${build.helper.plugin.version}</version>
+		        <executions>
+		          <execution>
+		            <id>attach-artifacts</id>
+		            <phase>package</phase>
+		            <goals>
+		              <goal>attach-artifact</goal>
+		            </goals>
+		            <configuration>
+		              <artifacts>
+		                <artifact>
+		                  <file>src/main/config/com.cohesive.postgres.datasource.cfg</file>
+		                  <type>cfg</type>
+		                  <classifier>datasource</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>src/main/config/com.cohesive.postgres.namespaces.cfg</file>
+		                  <type>cfg</type>
+		                  <classifier>namespaces</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../LICENSE.txt</file>
+		                  <type>txt</type>
+		                  <classifier>license</classifier>
+		                </artifact>
+		                <artifact>
+		                  <file>../../NOTICE.txt</file>
+		                  <type>txt</type>
+		                  <classifier>notice</classifier>
+		                </artifact>
+		   
+		                <artifact>
+		                  <file>../../licenses/licenses.zip</file>
+		                  <type>zip</type>
+		                  <classifier>licenses</classifier>
+		                </artifact>
+
+		              </artifacts>
+		            </configuration>
+		          </execution>
+		        </executions>
+		      </plugin>
+		</plugins>
+	</build>
+
+	
+</project>
