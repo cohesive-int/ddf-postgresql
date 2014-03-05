@@ -1,0 +1,46 @@
+<assembly>
+
+  <id>bin</id>
+
+  <formats>
+    <format>zip</format>
+  </formats>
+  
+  <includeBaseDirectory>false</includeBaseDirectory>
+  
+  <fileSets>
+    <fileSet>
+      <directory>src/main/etc</directory>
+      <outputDirectory>/system-customizations/cohesive-postgres/etc</outputDirectory>
+      <includes>
+        <include>*</include>
+      </includes>
+      <fileMode>0644</fileMode>
+    </fileSet>
+	<fileSet>
+      <directory>../../licenses</directory>
+      <outputDirectory>/system-customizations/cohesive-postgres/licenses</outputDirectory>
+      <includes>
+        <include>*</include>
+      </includes>
+      <fileMode>0444</fileMode>
+    </fileSet>
+	<fileSet>
+      <directory>../../</directory>
+      <outputDirectory>/system-customizations/cohesive-postgres/</outputDirectory>
+      <includes>
+        <include>*.txt</include>
+      </includes>
+      <fileMode>0444</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>target/dependencies/system</directory>
+      <outputDirectory>/system-customizations/cohesive-postgres/repo</outputDirectory>
+	  <excludes>
+	    <exclude>**/org/apache/karaf/**</exclude>
+		<exclude>**/org/springframework/**</exclude>
+	  </excludes>
+    </fileSet>
+  </fileSets>
+
+</assembly>
