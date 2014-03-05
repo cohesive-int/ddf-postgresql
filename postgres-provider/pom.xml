@@ -4,7 +4,7 @@
 	<name>Postgres Catalog Provider</name>
 	<groupId>com.cohesive.ddf</groupId>
 	<artifactId>postgres</artifactId>
-	<version>1.2.1.RELEASE-SNAPSHOT</version>
+	<version>1.2.0.RELEASE-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
