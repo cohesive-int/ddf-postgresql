@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.LoggerFactory;
 import org.slf4j.ext.XLogger;
@@ -225,7 +225,7 @@ public class PostgresFilterDelegate extends FilterDelegate<SQLHolder> {
 	  //TODO figure out how to format dates
 	    logEntry( "relative", propertyName, duration );
 		Date date = new DateTime().minus(duration).toDate();
-		return new SQLHolder( getMappedPropertyName( propertyName) + " between '" + date + "' AND 'infinity'" );
+		return new SQLHolder( getMappedPropertyName( propertyName) + " between '" + date + "' AND '" + new Date() + "'" );
 	}
 
     @Override
