@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features name="cohesive-source-postgres">
+  
+  <feature name="cohesive-source-postgres" version="${project.version}">
+    <feature version="[3.0,4.0)">spring</feature>
+	<feature version="[3.0,4.0)">spring-jdbc</feature>
+	<feature version="[3.0,4.0)">spring-tx</feature>
+	<feature version="[3.0,4.0)">spring-oxm</feature>
+	
+	<configfile finalname="/etc/ddf/com.cohesive.postgres.datasource.cfg">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/cfg/datasource</configfile>
+	<configfile finalname="/etc/ddf/com.cohesive.postgres.namespaces.cfg">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/cfg/namespaces</configfile>
+	<configfile finalname="/cohesive/source-postgres/NOTICE.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/notice</configfile>
+	<configfile finalname="/cohesive/source-postgres/LICENSE.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/license</configfile>
+	<configfile finalname="/cohesive/source-postgres/licenses/licenses.zip">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/zip/licenses</configfile>
+	
+	<bundle>mvn:org.apache.geronimo.specs/geronimo-j2ee-connector_1.5_spec/${geronimo-j2ee-connector_1.5_spec.version}</bundle>
+	<bundle>mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}</bundle>
+  </feature>
+
+</features>
+
