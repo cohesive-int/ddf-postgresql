@@ -17,13 +17,13 @@ import org.apache.ibatis.type.JdbcType;
  * @author Jeff Vettraino
  * TypeHandler for XML Type
  */
-public class XmlTypeHandler extends BaseTypeHandler {
+public class XmlTypeHandler extends BaseTypeHandler<String> {
 
 	/**
 	 * @see org.apache.ibatis.type.BaseTypeHandler#getNullableResult(java.sql.ResultSet, java.lang.String)
 	 */
 	@Override
-	public Object getNullableResult(ResultSet resultSet, String columnName)	throws SQLException {
+	public String getNullableResult(ResultSet resultSet, String columnName)	throws SQLException {
 		
 		SQLXML sqlxml = resultSet.getSQLXML(columnName);
 		return sqlxml.getString();
@@ -33,7 +33,7 @@ public class XmlTypeHandler extends BaseTypeHandler {
 	 * @see org.apache.ibatis.type.BaseTypeHandler#getNullableResult(java.sql.CallableStatement, int)
 	 */
 	@Override
-	public Object getNullableResult(CallableStatement callableStatement, int columnIndex) throws SQLException {
+	public String getNullableResult(CallableStatement callableStatement, int columnIndex) throws SQLException {
 
 		SQLXML sqlxml = callableStatement.getSQLXML(columnIndex);
 		return sqlxml.getString();
@@ -43,10 +43,17 @@ public class XmlTypeHandler extends BaseTypeHandler {
 	 * @see org.apache.ibatis.type.BaseTypeHandler#setNonNullParameter(java.sql.PreparedStatement, int, java.lang.Object, org.apache.ibatis.type.JdbcType)
 	 */
 	@Override
-	public void setNonNullParameter(PreparedStatement preparedStatement, int i, Object parameter, JdbcType jdbcType) throws SQLException {
+	public void setNonNullParameter(PreparedStatement preparedStatement, int i, String parameter, JdbcType jdbcType) throws SQLException {
 		SQLXML sqlxml = preparedStatement.getConnection().createSQLXML();
-		sqlxml.setString( (String)parameter );
+		sqlxml.setString( parameter );
 		preparedStatement.setSQLXML(i, sqlxml);
+	}
+
+	@Override
+	public String getNullableResult(ResultSet resultSet, int columnIndex)
+			throws SQLException {
+		SQLXML sqlxml = resultSet.getSQLXML( columnIndex );
+		return sqlxml.getString();
 	}
 
 }

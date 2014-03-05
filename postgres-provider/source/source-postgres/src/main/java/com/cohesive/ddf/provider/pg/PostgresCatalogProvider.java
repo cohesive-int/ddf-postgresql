@@ -58,7 +58,7 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
 
 	private SourceMonitor callback;
 	
-	//The following 3 variables are injected by Spring Beans file
+	//The following 4 variables are injected by Spring Beans file
 	private FilterAdapter filterAdapter = null;
 	private BoneCPDataSource datasource = null;
 	private EncryptionService encryptionService = null;
@@ -100,10 +100,12 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
 	    try {
 	        logger.debug( "Testing if database connection is available (called from CatalogFramework)" );
             boolean available = queryMapper.testConnection() == 1;
-            if ( available ){
-                callback.setAvailable();
-            }else{
-                callback.setUnavailable();
+            if ( callback != null ){
+	            if ( available ){
+	                callback.setAvailable();
+	            }else{
+	                callback.setUnavailable();
+	            }
             }
             return available;
         } catch (Exception e) {
@@ -268,7 +270,6 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
             logger.warn("DataSource is null and has not been properly initialized. This object should be created before it is updated.") ;
             return;
         }
-
         Object propertyObject = properties.get("url");
         if( propertyObject != null)    {
             datasource.setJdbcUrl( propertyObject.toString() );
@@ -347,6 +348,8 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
         } catch (NumberFormatException e) {
             logger.info("This property {statementsCacheSize} requires that the input be an integer value. ", e);
         }
+        
+        
         
         if(callback != null) {
             if(isAvailable()) {

@@ -2,18 +2,17 @@
 <features name="cohesive-source-postgres">
   
   <feature name="cohesive-source-postgres" version="${project.version}">
-    <feature version="[3.0,3.1)">spring</feature>
-	<feature version="[3.0,3.1)">spring-jdbc</feature>
-	<feature version="[3.0,3.1)">spring-tx</feature>
-	<feature version="[3.0,3.1)">spring-oxm</feature>
+    <feature version="[3.0,4.0)">spring</feature>
+	<feature version="[3.0,4.0)">spring-jdbc</feature>
+	<feature version="[3.0,4.0)">spring-tx</feature>
+	<feature version="[3.0,4.0)">spring-oxm</feature>
+	
 	<configfile finalname="/etc/ddf/com.cohesive.postgres.datasource.cfg">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/cfg/datasource</configfile>
 	<configfile finalname="/etc/ddf/com.cohesive.postgres.namespaces.cfg">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/cfg/namespaces</configfile>
-	<configfile finalname="/cohesive/source-postgres/3rdPartyCopyright-PostgreSQLSource.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/copyright</configfile>
-	<!--<configfile finalname="/cohesive/source-postgres/ExportControl-PostgreSQLSource.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/export</configfile>-->
-	<configfile finalname="/cohesive/source-postgres/SoftwareUsageAgreement-PostgreSQLSource.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/agreement</configfile>
-	<configfile finalname="/cohesive/source-postgres/licenses/BSDLicense.pdf">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/pdf/bsd-license</configfile>
-	<configfile finalname="/cohesive/source-postgres/licenses/Apache v2.0.pdf">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/pdf/apache-license</configfile>
-	<configfile finalname="/cohesive/source-postgres/licenses/Cohesive Integrations v1.0.pdf">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/pdf/cohesive-license</configfile>
+	<configfile finalname="/cohesive/source-postgres/NOTICE.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/notice</configfile>
+	<configfile finalname="/cohesive/source-postgres/LICENSE.txt">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/txt/license</configfile>
+	<configfile finalname="/cohesive/source-postgres/licenses/licenses.zip">mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}/zip/licenses</configfile>
+	
 	<bundle>mvn:org.apache.geronimo.specs/geronimo-j2ee-connector_1.5_spec/${geronimo-j2ee-connector_1.5_spec.version}</bundle>
 	<bundle>mvn:com.cohesive.ddf.postgres/cohesive-source-postgres/${project.version}</bundle>
   </feature>

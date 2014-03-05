@@ -1,0 +1,64 @@
+           Copyright (c) Cohesive Integrations, LLC 
+
+      Cohesive Integrations Public License, version 1.0-LGPL 
+
+A- End User License Agreement. 
+
+Thank you for choosing Our Software. Please review these license terms (“Agreement”) 
+diligently. “Cohesive Integrations”, “Cohesive”, “We”, “Our” or “Us” refer to Cohesive 
+Integrations, LLC. “You”, “Your” refer to an individual or Legal Entity exercising 
+permissions granted by this license. By installing, analyzing, or using this software, You 
+agree with the terms and conditions of this Agreement. 
+
+
+B- Permitted License Uses and Restrictions. 
+
+Subject to the terms and conditions in this license, Cohesive Integrations grants to You a 
+non-exclusive, no-charge, royalty-free license to install and use the current Cohesive 
+Integrations software product. Except as and only to the extent expressly permitted in this 
+license, the LGPL v2.1 license, the LGPL v3.0 license, or by applicable law, you may not 
+decompile, reverse engineer, disassemble, modify, or create derivative works of Cohesive 
+Integrations products or any part thereof. Redistribution of any Cohesive Integrations 
+software product, in any form whatsoever shall reproduce the above copyright notice, this 
+list of conditions, the following limitation of liability, and the general notice section of 
+this agreement. 
+
+
+C- Limitation of Liability. 
+
+The following provision sets out the entire financial liability of Cohesive Integrations 
+(including but not limited to any liability for the acts or omissions of its affiliates, 
+employees, or founders) in respect of any breach of this agreement howsoever arising; 
+and any representation, misrepresentation (whether innocent or negligent), statement or 
+omission (whether innocent or negligent) arising under or in connection with this 
+agreement. To the fullest extent of law, in no event will Cohesive Integrations, its 
+employees, founders, or partners be liable for (A) any loss or corruption of data or 
+information regardless of legal or technical theory; (B) any compliance violation on Your 
+part. Nothing in this agreement excludes the liability of Cohesive Integrations for death 
+or personal injury caused by Cohesive Integrations’ negligence; or fraud or fraudulent 
+misrepresentation. Notwithstanding this, Cohesive Integrations ‘total aggregate liability 
+in contract, tort (including negligence or breach of statutory duty howsoever arising), 
+misrepresentation (whether innocent or negligent), restitution or otherwise, arising in 
+connection with the performance or contemplated performance of this agreement shall in 
+all circumstances be limited to the lesser of $1000.00 (US) or the amount paid by You for 
+Cohesive Integrations software and services. 
+ 
+
+D- General. 
+
+This Agreement is the entire agreement between You and Cohesive Integrations and 
+replaces all prior understandings, communications and agreements, oral or written, 
+regarding its subject matter. This agreement may be modified only by a written 
+amendment signed by the parties. If any court of law, having the jurisdiction, rules that 
+any part of the Agreement is invalid, that invalid section will be removed without 
+affecting the remainder of the Agreement. The remaining terms will be valid and 
+enforceable. 
+
+-----------------------------------------------------------------------------------------
+The Cohesive DDF Postgres Provider includes a number of components and libraries with separate 
+copyright notices and license terms. Your use of those components are subject to the terms 
+and conditions of the following licenses.
+
+The complete set of licenses can be found in the license.zip file (if KAR file is installed 
+that will be in the cohesive\source-postgres\licenses directory)
+
