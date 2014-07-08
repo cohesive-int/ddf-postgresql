@@ -4,7 +4,7 @@
 	<name>Postgres Catalog Provider</name>
 	<groupId>com.cohesive.ddf</groupId>
 	<artifactId>postgres</artifactId>
-	<version>1.2.1.RELEASE</version>
+	<version>1.2.2.RELEASE-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,8 +48,8 @@
     </description>
 	
 	<scm>
-        <connection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/postgres-1.2.1.RELEASE</connection>
-		<developerConnection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/postgres-1.2.1.RELEASE</developerConnection>
+        <connection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/tags/</connection>
+		<developerConnection>scm:svn:https://cohesive.svn.cvsdude.com/cohesive/dib4.0.1/postgres-provider</developerConnection>
     </scm>
 
     <issueManagement>

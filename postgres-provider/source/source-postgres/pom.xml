@@ -3,7 +3,7 @@
 	<parent>
 	    <groupId>com.cohesive.ddf.postgres</groupId>
 		<artifactId>source</artifactId>
-		<version>1.2.1.RELEASE</version>
+		<version>1.2.2.RELEASE-SNAPSHOT</version>
 	</parent>
 	<name>Cohesive Integrations :: DDF :: Source :: Postgres MDC</name>
 	<artifactId>cohesive-source-postgres</artifactId>
