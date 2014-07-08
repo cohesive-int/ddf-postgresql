@@ -3,7 +3,7 @@
 	<parent>
 	    <groupId>com.cohesive.ddf.postgres</groupId>
 		<artifactId>source</artifactId>
-		<version>1.2.1.RELEASE-SNAPSHOT</version>
+		<version>1.2.1.RELEASE</version>
 	</parent>
 	<name>Cohesive Integrations :: DDF :: Source :: Postgres MDC</name>
 	<artifactId>cohesive-source-postgres</artifactId>
@@ -241,7 +241,7 @@
                             *
                             
                         </Import-Package>
-                        <Export-Package></Export-Package>
+                        <Export-Package />
                         <Private-Package>
                           com.cohesive.ddf.provider.*, 
                           
