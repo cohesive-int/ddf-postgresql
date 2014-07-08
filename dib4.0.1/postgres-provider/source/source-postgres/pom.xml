@@ -119,6 +119,8 @@
 			<plugin>
                 <groupId>org.apache.felix</groupId>
                 <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.3.5</version>
+                <extensions>true</extensions>
                 <configuration>
                     <instructions>
                         <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
@@ -134,9 +136,21 @@
 							joda-time,
 							jts
 						</Embed-Dependency>
-                        <Export-Package />
+                        
                         <Import-Package>
-                            <!-- Packages used by dependencies but not needed at runtime 
+                            !com.mongodb.*,
+                            !org.hibernate, 
+                            !org.ietf.jgss,
+                            !org.codehaus.jackson.*,
+                            !org.springframework.data.*,
+                            !javax.persistence.*,
+                            !org.joda.convert,
+                            !org.springframework.amqp.*,
+                            !org.springframework.classify.*,
+                            !org.springframework.orm.*,
+                            !org.springframework.retry.*,
+                            
+                            
 							sun.security.krb5;resolution:=optional,
                             sun.security.krb5.internal;resolution:=optional,
                             sun.security.util;resolution:=optional,
@@ -148,7 +162,7 @@
                             org.apache.logging.log4j.message;resolution:=optional,
                             org.apache.logging.log4j.spi;resolution:=optional,
 							com.ibatis.sqlmap.client;resolution:=optional,
-							com.ibatis.sqlmap.engine.execution;resolution:=optional,-->
+							com.ibatis.sqlmap.engine.execution;resolution:=optional,
 
                             <!-- Setting version manually to prevent bundle plugin setting it too high -->
                             javax.servlet;version="[2.4,3)",
@@ -157,6 +171,8 @@
                             javax.management,
                             javax.naming,
                             javax.naming.spi,
+                            javax.net, 
+                            javax.net.ssl,
                             javax.transaction.xa,
                             javax.xml,
                             javax.xml.namespace,
@@ -182,6 +198,7 @@
                             
                             <!-- Everything else should auto-import -->
 							org.aopalliance.aop;version="[1.0,2.0)",
+                            org.aopalliance.intercept;version="[1.0,2.0)",
 							org.springframework.aop;version="[3.0,4.0)",
 						    org.springframework.aop.framework;version="[3.0,4.0)",
 						    org.springframework.jdbc;version="[3.0,4.0)",
@@ -221,8 +238,15 @@
 							
 							ddf.security.encryption;version="[1.0,2.0)",
 							
+                            *
                             
                         </Import-Package>
+                        <Export-Package></Export-Package>
+                        <Private-Package>
+                          com.cohesive.ddf.provider.*, 
+                          
+                                                     
+                        </Private-Package>
                     </instructions>
                 </configuration>
             </plugin>
