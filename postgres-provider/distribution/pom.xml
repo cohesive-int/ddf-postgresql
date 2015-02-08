@@ -13,6 +13,6 @@
 	<modules>
 		<module>feature</module>
 		<module>kar</module>
-		<module>package</module>
+		<!--<module>package</module>-->
 	</modules>
 </project>
