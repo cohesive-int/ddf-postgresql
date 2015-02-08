@@ -6,6 +6,7 @@
 	<artifactId>postgres</artifactId>
 	<version>1.2.2.RELEASE-SNAPSHOT</version>
 	<packaging>pom</packaging>
+    <url>https://github.com/cohesive-int/ddf-postgresql</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<karaf.version>2.3.2</karaf.version>
