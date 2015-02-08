@@ -4,7 +4,7 @@
 	<name>Postgres Catalog Provider</name>
 	<groupId>com.cohesive.ddf</groupId>
 	<artifactId>postgres</artifactId>
-	<version>1.2.2.RELEASE-SNAPSHOT</version>
+	<version>1.2.2.RELEASE</version>
 	<packaging>pom</packaging>
     <url>https://github.com/cohesive-int/ddf-postgresql</url>
 	<properties>
@@ -52,7 +52,7 @@
         <url>https://github.com/cohesive-int/ddf-postgresql</url>
         <connection>scm:git:https://github.com/cohesive-int/ddf-postgresql.git</connection>
         <developerConnection>scm:git:https://github.com/cohesive-int/ddf-postgresql.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>postgres-1.2.2.RELEASE</tag>
     </scm>
 
     <distributionManagement>
