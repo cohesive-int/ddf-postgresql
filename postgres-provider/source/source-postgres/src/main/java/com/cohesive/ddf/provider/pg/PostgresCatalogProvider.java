@@ -27,7 +27,6 @@ import com.jolbox.bonecp.BoneCPDataSource;
 
 import ddf.catalog.data.ContentType;
 import ddf.catalog.data.Metacard;
-import ddf.catalog.data.MetacardImpl;
 import ddf.catalog.data.Result;
 import ddf.catalog.filter.FilterAdapter;
 import ddf.catalog.operation.CreateRequest;
@@ -178,21 +177,25 @@ public class PostgresCatalogProvider extends MaskableImpl implements CatalogProv
         List<Metacard> returnCards = null;
         if ( DeleteRequest.DELETE_BY_ID.equals( deleteAttribute ) ){
             List<String> ids = (List<String>)deleteRequest.getAttributeValues();
+            List<Result> results = queryMapper.queryById( ids );
             size = crudMapper.deleteMetacards( ids );
             returnCards = new ArrayList<Metacard>( size );
-            for ( int i=0; i<size; i++ ) {
-                MetacardImpl deletedMetacard = new MetacardImpl();
-                deletedMetacard.setId( ids.get( i ) );
-                returnCards.add( deletedMetacard );
+            final String id = getId();
+            for ( Result result : results ) {
+                Metacard metacard = result.getMetacard();
+                metacard.setSourceId( id );
+                returnCards.add( metacard );
             }
         }else if ( DeleteRequest.DELETE_BY_PRODUCT_URI.equals( deleteAttribute ) ){
             List<URI> uris = (List<URI>)deleteRequest.getAttributeValues();
+            List<Result> results = queryMapper.queryByURI( uris );
             size = crudMapper.deleteMetacardsByURI( uris );
             returnCards = new ArrayList<Metacard>( size );
-            for ( int i=0; i<size; i++  ) {
-                MetacardImpl deletedMetacard = new MetacardImpl();
-                deletedMetacard.setResourceURI( uris.get( i ) );
-                returnCards.add( deletedMetacard );
+            final String id = getId();
+            for ( Result result : results ) {
+                Metacard metacard = result.getMetacard();
+                metacard.setSourceId( id );
+                returnCards.add( metacard );
             }
         }else{
             throw new IngestException( "Deleting by '" + deleteAttribute + "' is not supported by the " + getTitle() + ", only deleting by '" + 

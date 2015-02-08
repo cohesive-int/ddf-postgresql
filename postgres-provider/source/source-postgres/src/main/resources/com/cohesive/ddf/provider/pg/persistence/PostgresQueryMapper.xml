@@ -47,7 +47,53 @@
 		</where>
 		 ORDER BY ${orderBy} LIMIT ${maxResults} OFFSET ${offset}
 	</select>
+    
+    <select id="queryById" resultType="com.cohesive.ddf.provider.common.ProviderResult" parameterType="list">
+
+        SELECT CATALOG_ID as id, 
+               CATALOG_TITLE as title, 
+               CATALOG_DATATYPE as contentTypeName,
+               CATALOG_VERSION as contentTypeVersion,
+               CATALOG_CREATED_TIMESTAMP as createdDate,
+               CATALOG_MODIFIED_TIMESTAMP as modifiedDate,
+               CATALOG_EFFECTIVE_TIMESTAMP as effectiveDate,
+               CATALOG_EXPIRATION_TIMESTAMP as expirationDate,
+               CATALOG_WKT_TEXT as location,
+               CATALOG_METADATA as metadata,
+               CATALOG_THUMBNAIL as thumbnail,
+               CATALOG_RESOURCE_URI as resourceUri,
+               CATALOG_RESOURCE_SIZE as resourceSize
+               FROM ddf.ddf_catalog_tab
+               where catalog_id IN 
+               <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+                 #{id}
+               </foreach>
+    </select>
+    
+    <select id="queryByURI" resultType="com.cohesive.ddf.provider.common.ProviderResult" parameterType="list">
+
+        SELECT CATALOG_ID as id, 
+               CATALOG_TITLE as title, 
+               CATALOG_DATATYPE as contentTypeName,
+               CATALOG_VERSION as contentTypeVersion,
+               CATALOG_CREATED_TIMESTAMP as createdDate,
+               CATALOG_MODIFIED_TIMESTAMP as modifiedDate,
+               CATALOG_EFFECTIVE_TIMESTAMP as effectiveDate,
+               CATALOG_EXPIRATION_TIMESTAMP as expirationDate,
+               CATALOG_WKT_TEXT as location,
+               CATALOG_METADATA as metadata,
+               CATALOG_THUMBNAIL as thumbnail,
+               CATALOG_RESOURCE_URI as resourceUri,
+               CATALOG_RESOURCE_SIZE as resourceSize
+               FROM ddf.ddf_catalog_tab
+               where CATALOG_RESOURCE_URI IN 
+               <foreach item="uri" index="index" collection="list" open="(" separator="," close=")">
+                 #{uri, javaType=java.net.URI, typeHandler=com.cohesive.ddf.provider.common.types.URITypeHandler}
+               </foreach>
+    </select>
 	
+    
+    
 	<select id="getTotalCount" resultType="int" parameterType="com.cohesive.ddf.provider.pg.PostgresQuery">
 
 		SELECT count(1)
