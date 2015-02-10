@@ -1,17 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
 	<parent>
-	    <groupId>com.cohesive.ddf.postgres</groupId>
+	    <groupId>com.cohesiveintegrations.ddf.postgres</groupId>
 		<artifactId>distribution</artifactId>
 		<version>1.2.2.RELEASE-SNAPSHOT</version>
 	</parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.cohesive.ddf.package</groupId>
+  <groupId>com.cohesiveintegrations.ddf.package</groupId>
   <artifactId>cohesive-source-postgres-zip</artifactId>
   <name>Postgres MDC Source :: Package Zip</name>
 
   <dependencies>
     <dependency>
-      <groupId>com.cohesive.ddf.feature</groupId>
+      <groupId>com.cohesiveintegrations.ddf.feature</groupId>
       <artifactId>cohesive-source-postgres</artifactId>
       <version>${project.version}</version>
       <type>xml</type>
@@ -34,7 +34,7 @@
             </goals>
             <configuration>
               <descriptors>
-                <descriptor>mvn:com.cohesive.ddf.feature/cohesive-source-postgres/${project.version}/xml/features</descriptor>
+                <descriptor>mvn:com.cohesiveintegrations.ddf.feature/cohesive-source-postgres/${project.version}/xml/features</descriptor>
               </descriptors>
 			  <features>
                 <feature>cohesive-source-postgres/${project.version}</feature>
