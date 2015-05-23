@@ -8,7 +8,7 @@
 	</parent>
 
   <groupId>com.cohesiveintegrations.ddf.kar</groupId>
-  <artifactId>cohesive-postgres-app</artifactId>
+  <artifactId>postgres-app</artifactId>
   <name>Cohesive :: Postgres :: Postgres Catatog App</name>
 
   <build>
