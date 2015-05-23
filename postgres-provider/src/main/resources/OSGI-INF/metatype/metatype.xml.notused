@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metatype:MetaData xmlns:metatype="http://www.osgi.org/xmlns/metatype/v1.0.0">
+
+	<OCD
+		description="Cohesive Integrations: DDF Postgres Catalog Provider Data Source Connection Configuration"
+		name="DDF Postgres Catalog Provider" id="com.cohesive.ddf.provider.common.BoneCPDataSourceConfiguration">
+
+		<!-- SHARED PROPERTIES -->
+		<AD name="Connection URL" id="url" required="true" type="String"
+			default="jdbc:postgresql://localhost:5432/ddf" description="The JDBC Connection String for Postgres in the format jdbc:postgresql://<hostname>:<port>/<database instance name>">
+		</AD>
+
+		<!-- TRANSACTIONAL DATASOURCE CONFIGURATION -->
+		<AD name="Username" id="username"
+			description="The user with read/write priviliges to connect to the DB."
+			required="true" type="String" default="postgres" />
+
+		<AD name="User's Password" id="password"
+			description="The password associated with the Database User"
+			required="true" type="String" default="password" />
+
+		<AD name="Idle Connection Test Period Time" id="idleConnectionTestPeriod"
+			description="The time (in minutes), for a connection to remain idle before sending a test query to the DB"
+			required="true" type="Integer" default="15" />
+
+		<AD name="Maximum time for unused/idle connection" id="idleMaxAge"
+			description="The time (in minutes), for a connection to remain unused before it is closed off"
+			required="true" type="Integer" default="60" />
+
+		<AD name="Maximum Connections Per Partition" id="maxConnectionsPerPartition"
+			description="Sets the maximum number of connections that will be contained in every partition. Setting this 
+			to 5 with 3 partitions means you will have 15 unique connections to the database. Note that the connection 
+			pool will not create all these connections in one go but rather start off with minConnectionsPerPartition 
+			and gradually increase connections as required. "
+			required="true" type="Integer" default="20" />
+			
+		<AD name="Partition Count" id="partitionCount"
+			description="Sets number of partitions to use. In order to reduce lock contention and thus improve performance,
+			each incoming connection request picks off a connection from a pool that has thread-affinity, 
+			i.e. pool[threadId % partition_count]. The higher this number, the better your performance will be for the 
+			case when you have plenty of short-lived threads. Beyond a certain threshold, maintenance of these pools will 
+			start to have a negative effect on performance (and only for the case when connections on a partition start running out).
+			Recommended: 2-4 (but very app specific) "
+			required="true" type="Integer" default="3" />
+			
+		<AD name="New Connection Creation Increment" id="acquireIncrement"
+			description="When the available connections are about to run out, BoneCP will dynamically create new ones in batches. 
+			This property controls how many new connections to create in one go (up to a maximum of maxConnectionsPerPartition). "
+			required="true" type="Integer" default="5" />
+
+		<AD name="Statement Cache Size" id="statementsCacheSize"
+			description="The number of statements to cache. "
+			required="true" type="Integer" default="100" />
+			
+			
+	</OCD>
+
+	<Designate pid="com.cohesive.ddf.provider.common.BoneCPDataSourceConfiguration">
+		<Object ocdref="com.cohesive.ddf.provider.common.BoneCPDataSourceConfiguration" />
+	</Designate>
+</metatype:MetaData>
