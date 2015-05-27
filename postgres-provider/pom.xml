@@ -5,6 +5,7 @@
 		<artifactId>postgres</artifactId>
 		<version>1.3.1-SNAPSHOT</version>
 	</parent>
+    <groupId>com.cohesiveintegrations.ddf.postgres</groupId>
 	<name>Cohesive :: Postgres :: Catalog Provider</name>
 	<artifactId>postgres-provider</artifactId>
 	<packaging>bundle</packaging>
